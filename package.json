@@ -1,0 +1,21 @@
+{
+  "name": "nodejs_udemy",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app1.js",
+    "start-server":"node app1.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mukut-d/nodejs_udemy.git"
+  },
+  "author": "Mukutmani Das",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mukut-d/nodejs_udemy/issues"
+  },
+  "homepage": "https://github.com/mukut-d/nodejs_udemy#readme",
+  "description": ""
+}
