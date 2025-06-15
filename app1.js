@@ -1,18 +1,11 @@
 const http = require("http");
 
-function fnListener(req, res) {}
+const express = require("express");
 
-http.createServer(fnListener);
-
-// Using Annomymous Function
-http.createServer(function (req, res) {});
+const app = express();
 
 // arrow functon
 
-const server = http.createServer((req, res) => {
-  console.log(req);
-});
+const server = http.createServer(app);
 
-server.listen(3000, () => {
-  console.log("Server running on Port 3000");
-});
+server.listen(3000);
