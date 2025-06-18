@@ -1,46 +1,25 @@
-const http = require("http");
+const path = require("path");
+const express = require("express");
+const bodyParser = require("body-parser");
 
-const server = http.createServer((req, res) => {
-  const url = req.url;
-  if (url === "/") {
-    // ...
-    res.setHeader("Content-Type", "text/html");
-    res.write("<html>");
-    res.write("<head><title>Assignment 1</title></head>");
-    res.write(
-      `<body><form action="/create-user" method="post"><input type="text" name="username"/><button type="submit">Send</button></form></body>`
-    );
-    res.write("</html>");
-    return res.end();
-  }
+const adminRoutes = require("./routes/admin");
+const shopRoutes = require("./routes/shop");
 
-  if (url === "/users") {
-    // ...
-    res.setHeader("Content-Type", "text/html");
-    res.write("<html>");
-    res.write("<head><title>Assignment 1</title></head>");
-    res.write(
-      "<body><ul><li>User 1</li><li>User 2</li><li>User 3</li></ul></body>"
-    );
-    res.write("</html>");
-    return res.end();
-  }
+const app = express();
 
-  // ... Send a HTML Response with some "Page not found text"
-  if (url === "/create-user") {
-    const body = [];
-    req.on("data", (chunk) => {
-      body.push(chunk);
-    });
-    req.on("end", () => {
-      const parsedBody = Buffer.concat(body).toString();
-      console.log(parsedBody.split("=")[1]); //username="whatever"
-    });
+app.set("view engine", "pug");
+app.set("views", "views");
 
-    res.statusCode = 302;
-    res.setHeader("Location", "/");
-    res.end();
-  }
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, "public")));
+
+app.use("/admin", adminRoutes.routes);
+app.use(shopRoutes);
+
+// catch all routes
+app.use((req, res, next) => {
+  res.render("404");
+  // res.status(404).sendFile(path.join(__dirname, "views", "404.html"));
 });
 
-server.listen(3000);
+app.listen(3000);
